@@ -16,13 +16,14 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   final SearchBarController<SearchSuggestion> _searchBarController = SearchBarController();
 
-  Future<List<SearchSuggestion>> _getALlPosts(String text) async {
+  Future<List<SearchSuggestion>> _getSuggestionResult(String text) async {
     await Future.delayed(Duration(seconds: 1));
     List<SearchSuggestion> suggestions = [];
 
-    for (int i = 0; i < 10; i++) {
-      suggestions.add(SearchSuggestion("$text $i"));
-    }
+    //TODO: 자동완성 검색 api 호출후 suggesions에 넣어 반환
+//    for (int i = 0; i < 10; i++) {
+//      suggestions.add(SearchSuggestion("$text $i"));
+//    }
     return suggestions;
   }
 
@@ -34,7 +35,7 @@ class _SearchScreenState extends State<SearchScreen> {
           searchBarPadding: EdgeInsets.symmetric(horizontal: 10),
           headerPadding: EdgeInsets.symmetric(horizontal: 10),
           listPadding: EdgeInsets.symmetric(horizontal: 10),
-          onSearch: _getALlPosts,
+          onSearch: _getSuggestionResult,
           searchBarController: _searchBarController,
           placeHolder: Text("placeholder"),
           cancellationWidget: Text("Cancel"),
