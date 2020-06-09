@@ -1,12 +1,10 @@
 import 'package:cookle/constants/constants.dart';
 import 'package:flappy_search_bar/flappy_search_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:cookle/services/autocomplete.dart';
 
-class SearchSuggestion {
-  final String title;
+AutocompleteService autocomplete = new AutocompleteService();
 
-  SearchSuggestion(this.title);
-}
 
 class SearchScreen extends StatefulWidget {
   @override
@@ -17,14 +15,7 @@ class _SearchScreenState extends State<SearchScreen> {
   final SearchBarController<SearchSuggestion> _searchBarController = SearchBarController();
 
   Future<List<SearchSuggestion>> _getSuggestionResult(String text) async {
-    await Future.delayed(Duration(seconds: 1));
-    List<SearchSuggestion> suggestions = [];
-
-    //TODO: 자동완성 검색 api 호출후 suggesions에 넣어 반환
-//    for (int i = 0; i < 10; i++) {
-//      suggestions.add(SearchSuggestion("$text $i"));
-//    }
-    return suggestions;
+    return autocomplete.getAutocompleteData(text);
   }
 
   @override
@@ -43,6 +34,7 @@ class _SearchScreenState extends State<SearchScreen> {
           onCancelled: () {
             print("Cancelled triggered");
           },
+          minimumChars: 1,
           mainAxisSpacing: 10,
           crossAxisSpacing: 10,
           crossAxisCount: 1,
