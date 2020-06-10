@@ -24,12 +24,24 @@ class _SearchFilterState extends State<SearchFilter> {
       ),
     );
   }
+
+  List<Widget> createSearchItem(List<String> searchFilterList) {
+    List<Widget> searchFilter = List<Widget>();
+    searchFilterList.asMap().forEach((index, filterItem) {
+      searchFilter.add(FilterItem(filterItem, onDelete: () => removeItem(index)));
+    });
+    return searchFilter;
+  }
+
+  void removeItem(int index) {
+    setState(() {
+      searchFilterList = List.from(searchFilterList)
+        ..removeAt(index);
+    });
+  }
 }
 
-List<Widget> createSearchItem(List<String> searchFilterList) {
-  List <Widget> searchFilter = List<Widget>();
-  searchFilterList.forEach((filterItem) {
-    searchFilter.add(FilterItem(title: filterItem));
-  });
-  return searchFilter;
-}
+
+
+
+

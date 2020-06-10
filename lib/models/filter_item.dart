@@ -3,30 +3,27 @@ import 'package:flutter/material.dart';
 
 class FilterItem extends StatelessWidget {
   final String title;
+  final VoidCallback onDelete;
 
-  const FilterItem({Key key, this.title}) : super(key: key);
+  const FilterItem(this.title, {this.onDelete});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 5),
-      child: Column(
-        children: <Widget>[
-          Chip(
-            label: Text(
-              title,
-              style: TextStyle(
-                  color: kTextLightColor,
-                  fontSize: 13
-              ),
-            ),
-            onDeleted: () {
-              print("$title 삭제");
-            },
-            deleteIcon: Icon(Icons.add),
-            deleteIconColor: kTextLightColor,
-          )
-        ],
+      child: Chip(
+        label: Text(
+          title,
+          style: TextStyle(
+              color: kTextLightColor,
+              fontSize: 13
+          ),
+        ),
+        onDeleted: () {
+          this.onDelete();
+        },
+        deleteIcon: Icon(Icons.add),
+        deleteIconColor: kTextLightColor,
       ),
     );
   }

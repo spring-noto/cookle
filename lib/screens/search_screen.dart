@@ -15,7 +15,11 @@ class _SearchScreenState extends State<SearchScreen> {
   final SearchBarController<SearchSuggestion> _searchBarController = SearchBarController();
 
   Future<List<SearchSuggestion>> _getSuggestionResult(String text) async {
-    return autocomplete.getAutocompleteData(text);
+    List<SearchSuggestion> result = List();
+    result.add(SearchSuggestion('가지'));
+    result.add(SearchSuggestion('오이'));
+    return result;
+//    return autocomplete.getAutocompleteData(text);
   }
 
   @override

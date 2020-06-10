@@ -39,7 +39,7 @@ class _BodyState extends State<Body> {
 
     setState(() {
       this.searchFilterList.add(result);
-      this.searchFilter = SearchFilter(this.searchFilterList);
+//      this.searchFilter = SearchFilter(this.searchFilterList);
     });
   }
 }
