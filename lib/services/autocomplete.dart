@@ -13,7 +13,6 @@ class AutocompleteService {
   Dio dio = new Dio();
 
   Future<List<SearchSuggestion>> getAutocompleteData<T>(String text) async {
-    await Future.delayed(Duration(milliseconds: 350));
     Response<Map> response;
     response = await dio.get("$_Cookle_Auto_Prefix" + text);
     Map responseBody = response.data;
