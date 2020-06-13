@@ -1,7 +1,7 @@
 import 'package:cookle/constants/constants.dart';
+import 'package:cookle/services/autocomplete.dart';
 import 'package:flappy_search_bar/flappy_search_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:cookle/services/autocomplete.dart';
 
 AutocompleteService autocomplete = new AutocompleteService();
 
@@ -25,6 +25,7 @@ class _SearchScreenState extends State<SearchScreen> {
 //    return autocomplete.getAutocompleteData(text);
   }
 
+  //TODO: searchBar에 autoFocus 기능이 없음. 추후에 변경해야함
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,6 +60,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 title: Text(suggestion.title),
                 isThreeLine: false,
                 onTap: () {
+                  // 선택한 검색어 navigator로 전달
                   Navigator.pop(context, suggestion.title);
                 },
               ),
