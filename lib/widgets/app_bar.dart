@@ -30,6 +30,6 @@ AppBar homeAppBar(BuildContext context) {
             ]),
       ),
     ),
-    actions: <Widget>[IconButton(icon: SvgPicture.asset("assets/icons/notification.svg"), onPressed: () {})],
+    actions: <Widget>[IconButton(icon: SvgPicture.asset("assets/icons/person.svg"), onPressed: () {})],
   );
 }
