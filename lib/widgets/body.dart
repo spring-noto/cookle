@@ -15,6 +15,7 @@ class _BodyState extends State<Body> {
   List items;
   List data = List();
   bool isLoading = false;
+
   @override
   Widget build(BuildContext context) {
     return _buildBodyView();
@@ -40,28 +41,28 @@ class _BodyState extends State<Body> {
         SearchFilter(),
         Expanded(
             child: NotificationListener<ScrollNotification>(
-              onNotification: (ScrollNotification scrollInfo) {
-                if (!isLoading && scrollInfo.metrics.pixels ==
+          onNotification: (ScrollNotification scrollInfo) {
+            if (!isLoading &&
+                scrollInfo.metrics.pixels ==
                     scrollInfo.metrics.maxScrollExtent) {
-                  this.getJSONData();
-                  setState(() {
-                    isLoading = true;
-                  });
-                  return true;
-                }
-                setState(() {
-                  isLoading = false;
-                });
-                return false;
-              },
-              child: _buildListView(),
-            )
-        ),
+              this.getJSONData();
+              setState(() {
+                isLoading = true;
+              });
+              return true;
+            }
+            setState(() {
+              isLoading = false;
+            });
+            return false;
+          },
+          child: _buildListView(),
+        )),
         Container(
           height: isLoading ? 50.0 : 0,
           color: Colors.white70,
           child: Center(
-            child: new CircularProgressIndicator(),
+            child: CircularProgressIndicator(),
           ),
         ),
       ],
@@ -73,20 +74,60 @@ class _BodyState extends State<Body> {
       padding: const EdgeInsets.all(0),
       itemCount: data == null ? 0 : data.length,
       itemBuilder: (context, index) {
-//        return _buildImageColumn(data[index]);
-         return ListTile(title: Text("data"), subtitle: Text("likes: 1"),);
+        return _buildImageColumn(data[index]);
+        return ListTile(
+          title: Text("data"),
+          subtitle: Text("likes: 1"),
+        );
       },
     );
   }
 
-  Future<String> getJSONData() async {
-      setState(() {
-        List newItems = List();
-        newItems.add("data: test1");
-        data.addAll(newItems);
-        isLoading = false;
-      });
-      return "sucessful";
+  Widget _buildImageColumn(item) => Container(
+      decoration: BoxDecoration(color: Colors.white),
+      margin: EdgeInsets.only(bottom: 8.0),
+      child: Column(
+        children: <Widget>[
+          //TODO: CachedNetworkImage 위젯 사용
+          Container(
+            height: 300,
+            width: 400,
+            child: Center(
+                child:
+                    Text("요리이름", style: TextStyle(color: Colors.black, fontSize: 40,fontWeight: FontWeight.bold))),
+//          child: Image.asset("assets/images/cheese_burger.jpg"),
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                fit: BoxFit.cover,
+                colorFilter: ColorFilter.mode(
+                    Colors.black.withOpacity(0.7), BlendMode.dstATop),
+                image: AssetImage("assets/images/cheese_burger.jpg"),
+              ),
+            ),
+          ),
+          ListTile(
+            title: Text("재료"),
+            trailing: Icon(Icons.favorite_border),
+          )
+        ],
+      ));
+
+  Widget _imagePlaceHolder() {
+    return Container(
+      height: 200,
+      child: SizedBox(
+        height: 600,
+      ),
+    );
   }
 
+  Future<String> getJSONData() async {
+    setState(() {
+      List newItems = List();
+      newItems.add("data: test1");
+      data.addAll(newItems);
+      isLoading = false;
+    });
+    return "successful";
+  }
 }
